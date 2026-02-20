@@ -1,0 +1,9 @@
+export const APP_NAME = "HealthSync";
+export const MAX_LOGIN_ATTEMPTS = 5;
+export const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+export const PAGINATION_DEFAULT_LIMIT = 20;
+export const PAGINATION_MAX_LIMIT = 100;
+export const PASSWORD_MIN_LENGTH = 8;
+export const OTP_EXPIRY_SECONDS = 300;
+export const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "application/pdf"];
+export const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;

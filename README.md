@@ -119,25 +119,42 @@ healthsync/
 ## Getting Started
 
 ```bash
-# Clone the repository
-git clone https://github.com/<username>/healthsync.git
-cd healthsync
-
-# Install dependencies
+# Install backend dependencies
 npm install
 
-# Set up environment variables
+# Environment
 cp .env.example .env
 
-# Start databases (Docker)
-docker-compose up -d
+# Databases (Postgres + Mongo + Redis)
+docker compose up -d
 
-# Run database migrations
-npx prisma migrate dev
+# Generate Prisma client & run migrations
+npx prisma generate
+npx prisma migrate dev --name init
 
-# Start the development server
+# Backend (http://localhost:5000)
 npm run dev
+
+# Frontend (http://localhost:3000)
+cd client && npm install && npm run dev
+
+# Run the OOP + pattern test suite
+npm test
 ```
+
+## OOP & Design Patterns — where to look
+
+| Concept | Files |
+|---|---|
+| Abstract `User` + Patient/Doctor/Admin/Receptionist | [src/models/entities/](src/models/entities/) |
+| Abstract `Appointment` with polymorphic `calculateFee()` | [src/models/entities/Appointment.ts](src/models/entities/Appointment.ts) |
+| **Factory** | [src/patterns/factory/](src/patterns/factory/) — `UserFactory`, `AppointmentFactory` |
+| **State** | [src/patterns/state/](src/patterns/state/) — 5 concrete states + `stateFor()` |
+| **Builder** | [src/patterns/builder/PrescriptionBuilder.ts](src/patterns/builder/PrescriptionBuilder.ts) |
+| **Strategy** | [src/patterns/strategy/](src/patterns/strategy/) — Email / SMS / Push + context |
+| **Observer** | [src/patterns/observer/](src/patterns/observer/) — `AppointmentSubject`, `NotifyObserver` |
+| **Repository** | [src/repositories/](src/repositories/) — generic `IRepository<T>` + concrete repos |
+| **Singleton** | [src/config/prisma.ts](src/config/prisma.ts), `AppointmentSubject.instance()`, logger |
 
 ---
 
